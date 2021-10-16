@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CurrencyConverter.Views.MainPage"
+             xmlns:vm="clr-namespace:CurrencyConverter.ViewModels"
+             Title="{Binding Title}"
+             Background="#1C1C24">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="BackgroundColor" Color="#494856"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="10">
+            <!-- Converter -->
+            <Frame Background="{StaticResource BackgroundColor}" CornerRadius="8" Padding="0">
+                <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, 35" ColumnSpacing="2">
+
+                    <!-- From Currency -->
+                    <Grid Grid.Column="0" Grid.Row="0"
+                          BackgroundColor="#2000" Padding="10"
+                          RowDefinitions="Auto, *, Auto" RowSpacing="0">
+                        <Picker Grid.Row="0" 
+                                ItemsSource="{Binding CurrencyRates.Currencies}"
+                                SelectedItem="{Binding FromCurrency}"
+                                HorizontalTextAlignment="Start" HorizontalOptions="Fill"
+                                TextColor="White"
+                                ItemDisplayBinding="{Binding CharCode}"/>
+                        <Label Grid.Row="1"
+                               HorizontalTextAlignment="Start"
+                               Text="{Binding FromCurrency.Name}"
+                               TextColor="LightGray"/>
+                        <Entry Grid.Row="2" 
+                               Text="{Binding Amount}"
+                               HorizontalTextAlignment="Start" 
+                               Margin="0, 20, 0, 0"
+                               TextColor="White" FontSize="32"
+                               Keyboard="Numeric"
+                               ReturnCommand="{Binding Calculate}"/>
+                    </Grid>
+
+                    <!-- To Currency -->
+                    <Grid Grid.Column="1" Grid.Row="0"
+                          BackgroundColor="#2000" Padding="10"
+                          RowDefinitions="Auto, *, Auto" RowSpacing="0">
+                        <Picker Grid.Row="0"
+                                ItemsSource="{Binding CurrencyRates.Currencies}" 
+                                SelectedItem="{Binding ToCurrency}"
+                                HorizontalTextAlignment="End" HorizontalOptions="Fill"
+                                TextColor="White"
+                                ItemDisplayBinding="{Binding CharCode}"/>
+                        <Label Grid.Row="1"
+                               HorizontalTextAlignment="End"
+                               Text="{Binding ToCurrency.Name}"
+                               TextColor="LightGray"/>
+                        <Entry Grid.Row="2" 
+                               Text="{Binding Result}"
+                               HorizontalTextAlignment="End" 
+                               Margin="0, 20, 0, 0"
+                               TextColor="White" FontSize="32"
+                               Keyboard="Numeric"
+                               IsReadOnly="True"/>
+                    </Grid>
+
+                    <!-- Swap Button -->
+                    <Button Grid.ColumnSpan="2"
+                            HorizontalOptions="Center" VerticalOptions="Center"
+                            Background="{StaticResource BackgroundColor}"
+                            WidthRequest="40" HeightRequest="40" 
+                            Padding="0, -5, 0, 0" Margin="0"
+                            Command="{Binding SwapCurrencies}"
+                            CornerRadius="20" Text="⇄" FontSize="24"/>
+
+                    <!-- Date -->
+                    <DatePicker Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                                x:Name="DatePicker" Date="{Binding Date}"
+                                Format="dd MMMM yyyy"
+                                HorizontalOptions="Center" VerticalOptions="Center"
+                                TextColor="LightGray" FontSize="Small" />
+
+                </Grid>
+            </Frame>
+
+            <!-- Rates -->
+            <Frame Background="{StaticResource BackgroundColor}" CornerRadius="8" Padding="0">
+                <ScrollView>
+                    <CollectionView ItemsSource="{Binding CurrencyRates.Currencies}" Margin="0">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="50, 6*, 80" Margin="0, 10" Padding="20, 0">
+                                    <Label Grid.Column="0"
+                                           HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                                           TextColor="White"
+                                           Text="{Binding CharCode}" />
+                                    <Label Grid.Column="1"
+                                           HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                                           TextColor="White"
+                                           Text="{Binding Name}" />
+                                    <Label Grid.Column="2"
+                                           HorizontalTextAlignment="End" VerticalTextAlignment="Center"
+                                           TextColor="White"
+                                           Text="{Binding Value, StringFormat='{0:0.####} ₽'}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                </ScrollView>
+            </Frame>
+        </StackLayout>
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}"/>
+    </Grid>
+
+</ContentPage>
