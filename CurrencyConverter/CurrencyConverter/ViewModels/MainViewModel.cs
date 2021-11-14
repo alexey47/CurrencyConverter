@@ -52,7 +52,7 @@ namespace CurrencyConverter.ViewModels
                 _date = value;
                 Preferences.Set("date", $"{_date}");
                 OnPropertyChanged(nameof(Date));
-                GetCurrinciesRates.Execute(null);
+                GetCurrenciesRates.Execute(null);
             }
         }
         public Currency FromCurrency
@@ -125,7 +125,7 @@ namespace CurrencyConverter.ViewModels
                 });
             }
         }
-        public ICommand GetCurrinciesRates
+        public ICommand GetCurrenciesRates
         {
             get
             {
