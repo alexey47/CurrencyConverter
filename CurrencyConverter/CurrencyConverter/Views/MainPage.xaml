@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CurrencyConverter.Views.MainPage"
-             xmlns:vm="clr-namespace:CurrencyConverter.ViewModels"
-             xmlns:views="http://xamarin.com/schemas/2020/toolkit"
-             Title="{Binding Title}"
-             Background="#FF121212">
+<ContentPage
+    x:Class="CurrencyConverter.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:vm="clr-namespace:CurrencyConverter.ViewModels"
+    Title="{Binding Title}"
+    Background="#FF121212">
     <ContentPage.BindingContext>
         <vm:MainViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="PrimaryBackgroundColor">#FF282828</Color>
-            
+
             <Color x:Key="PrimaryTextColor">#FFFFFF</Color>
             <Color x:Key="SecondaryTextColor">#FFD3D3D3</Color>
             <Color x:Key="CharCodeTextColor">#55121212</Color>
@@ -26,171 +27,190 @@
     </ContentPage.Resources>
 
     <Grid>
-        <StackLayout HorizontalOptions="Center" 
-                     VerticalOptions="Center" 
-                     Margin="10" 
-                     Spacing="10">
+        <StackLayout
+            Margin="10"
+            HorizontalOptions="Center"
+            Spacing="10"
+            VerticalOptions="Center">
 
-            <!-- Converter -->
-            <Frame BackgroundColor="{StaticResource PrimaryBackgroundColor}" 
-                   CornerRadius="{StaticResource CornerRadius}"
-                   Padding="0">
-                <Grid ColumnDefinitions="*, *" 
-                      RowDefinitions="Auto, Auto" 
-                      ColumnSpacing="2">
+            <!--  Converter  -->
+            <Frame
+                Padding="0"
+                BackgroundColor="{StaticResource PrimaryBackgroundColor}"
+                CornerRadius="{StaticResource CornerRadius}">
+                <Grid
+                    ColumnDefinitions="*, *"
+                    ColumnSpacing="2"
+                    RowDefinitions="Auto, Auto">
 
-                    <!-- From Currency -->
-                    <Frame Grid.Column="0" 
-                           Grid.Row="0"
-                           Padding="0" 
-                           BackgroundColor="Transparent">
-                        <Grid BackgroundColor="{StaticResource CurrencyBlockColor}" 
-                              Padding="10"
-                              RowDefinitions="*, Auto" 
-                              RowSpacing="0">
+                    <!--  From Currency  -->
+                    <Frame
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Padding="0"
+                        BackgroundColor="Transparent">
+                        <Grid
+                            Padding="10"
+                            BackgroundColor="{StaticResource CurrencyBlockColor}"
+                            RowDefinitions="*, Auto"
+                            RowSpacing="0">
 
-                            <Label Grid.Row="0" 
-                                   Grid.RowSpan="2"
-                                   HorizontalTextAlignment="Center" 
-                                   VerticalTextAlignment="Center"
-                                   Text="{Binding FromCurrency.CharCode}"
-                                   TextColor="{StaticResource CharCodeTextColor}" 
-                                   FontSize="72" 
-                                   FontAttributes="Bold" />
-                            <Picker Grid.Row="0"
-                                    ItemsSource="{Binding CurrencyRates.Currencies}"
-                                    SelectedItem="{Binding FromCurrency}"
-                                    HorizontalTextAlignment="Start" 
-                                    HorizontalOptions="Fill"
-                                    TextColor="{StaticResource SecondaryTextColor}"
-                                    FontSize="Small"
-                                    ItemDisplayBinding="{Binding Name}"
-                                    Title="Currencies" />
-                            <Entry Grid.Row="1"
-                                   Text="{Binding Amount}"
-                                   HorizontalTextAlignment="Start"
-                                   Margin="0, 0, 0, 0"
-                                   TextColor="{StaticResource PrimaryTextColor}" 
-                                   FontSize="Title"
-                                   Keyboard="Numeric"
-                                   ReturnCommand="{Binding Calculate}" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                FontAttributes="Bold"
+                                FontSize="72"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding FromCurrency.CharCode}"
+                                TextColor="{StaticResource CharCodeTextColor}"
+                                VerticalTextAlignment="Center" />
+                            <Picker
+                                Title="Currencies"
+                                Grid.Row="0"
+                                FontSize="Small"
+                                HorizontalOptions="Fill"
+                                HorizontalTextAlignment="Start"
+                                ItemDisplayBinding="{Binding Name}"
+                                ItemsSource="{Binding CurrencyRates.Currencies}"
+                                SelectedItem="{Binding FromCurrency}"
+                                TextColor="{StaticResource SecondaryTextColor}" />
+                            <Entry
+                                Grid.Row="1"
+                                Margin="0,0,0,0"
+                                FontSize="Title"
+                                HorizontalTextAlignment="Start"
+                                Keyboard="Numeric"
+                                ReturnCommand="{Binding Calculate}"
+                                Text="{Binding Amount}"
+                                TextColor="{StaticResource PrimaryTextColor}" />
                         </Grid>
                     </Frame>
 
-                    <!-- To Currency -->
-                    <Frame Grid.Column="1" 
-                           Grid.Row="0"
-                           Padding="0" 
-                           BackgroundColor="Transparent">
-                        <Grid BackgroundColor="{StaticResource CurrencyBlockColor}" 
-                              Padding="10"
-                              RowDefinitions="*, Auto" 
-                              RowSpacing="0">
+                    <!--  To Currency  -->
+                    <Frame
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="Transparent">
+                        <Grid
+                            Padding="10"
+                            BackgroundColor="{StaticResource CurrencyBlockColor}"
+                            RowDefinitions="*, Auto"
+                            RowSpacing="0">
 
-                            <Label Grid.Row="0" 
-                                   Grid.RowSpan="2"
-                                   HorizontalTextAlignment="Center" 
-                                   VerticalTextAlignment="Center"
-                                   Text="{Binding ToCurrency.CharCode}"
-                                   TextColor="{StaticResource CharCodeTextColor}" 
-                                   FontSize="72" 
-                                   FontAttributes="Bold" />
-                            <Picker Grid.Row="0"
-                                    ItemsSource="{Binding CurrencyRates.Currencies}"
-                                    SelectedItem="{Binding ToCurrency}"
-                                    HorizontalTextAlignment="End" 
-                                    HorizontalOptions="Fill"
-                                    TextColor="{StaticResource SecondaryTextColor}"
-                                    FontSize="Small"
-                                    ItemDisplayBinding="{Binding Name}"
-                                    Title="Currencies" />
-                            <Entry Grid.Row="1"
-                                   Text="{Binding Result}"
-                                   HorizontalTextAlignment="End"
-                                   Margin="0, 0, 0, 0"
-                                   TextColor="{StaticResource PrimaryTextColor}" 
-                                   FontSize="Title"
-                                   Keyboard="Numeric" 
-                                   IsReadOnly="True"
-                                   ReturnCommand="{Binding Calculate}" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                FontAttributes="Bold"
+                                FontSize="72"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding ToCurrency.CharCode}"
+                                TextColor="{StaticResource CharCodeTextColor}"
+                                VerticalTextAlignment="Center" />
+                            <Picker
+                                Title="Currencies"
+                                Grid.Row="0"
+                                FontSize="Small"
+                                HorizontalOptions="Fill"
+                                HorizontalTextAlignment="End"
+                                ItemDisplayBinding="{Binding Name}"
+                                ItemsSource="{Binding CurrencyRates.Currencies}"
+                                SelectedItem="{Binding ToCurrency}"
+                                TextColor="{StaticResource SecondaryTextColor}" />
+                            <Entry
+                                Grid.Row="1"
+                                Margin="0,0,0,0"
+                                FontSize="Title"
+                                HorizontalTextAlignment="End"
+                                IsReadOnly="True"
+                                Keyboard="Numeric"
+                                ReturnCommand="{Binding Calculate}"
+                                Text="{Binding Result}"
+                                TextColor="{StaticResource PrimaryTextColor}" />
                         </Grid>
                     </Frame>
 
-                    <!-- Swap Button -->
-                    <Button Grid.Row="0" 
-                            Grid.ColumnSpan="2"
-                            HorizontalOptions="Center" 
-                            VerticalOptions="Center" 
-                            Padding="0, -5, 0, 0" 
-                            BackgroundColor="{StaticResource ButtonColor}"
-                            WidthRequest="40" 
-                            HeightRequest="40" 
-                            CornerRadius="{Binding Source={StaticResource CornerRadius}}"
-                            Command="{Binding SwapCurrencies}"
-                            Text="⇄" 
-                            FontSize="24" 
-                            TextColor="{StaticResource PrimaryTextColor}"/>
+                    <!--  Swap Button  -->
+                    <Button
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Padding="0,-5,0,0"
+                        BackgroundColor="{StaticResource ButtonColor}"
+                        Command="{Binding SwapCurrencies}"
+                        CornerRadius="{Binding Source={StaticResource CornerRadius}}"
+                        FontSize="24"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        Text="⇄"
+                        TextColor="{StaticResource PrimaryTextColor}"
+                        VerticalOptions="Center"
+                        WidthRequest="40" />
 
-                    <!-- Date -->
-                    <Grid Grid.Row="1"
-                          Grid.Column="0" 
-                          Grid.ColumnSpan="2"
-                          VerticalOptions="Center"
-                          HorizontalOptions="Center">
-                        <DatePicker x:Name="DatePicker" 
-                                    Date="{Binding Date}" 
-                                    Format="dd MMMM yyyy"
-                                    HorizontalOptions="Fill"
-                                    TextColor="{StaticResource SecondaryTextColor}" 
-                                    FontSize="Small"/>
+                    <!--  Date  -->
+                    <Grid
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <DatePicker
+                            x:Name="DatePicker"
+                            Date="{Binding Date}"
+                            FontSize="Small"
+                            Format="dd MMMM yyyy"
+                            HorizontalOptions="Fill"
+                            TextColor="{StaticResource SecondaryTextColor}" />
                     </Grid>
 
                 </Grid>
             </Frame>
 
-            <!-- Rates -->
-            <Frame CornerRadius="{StaticResource CornerRadius}"
-                   BackgroundColor="{StaticResource PrimaryBackgroundColor}"
-                   Padding="0">
+            <!--  Rates  -->
+            <Frame
+                Padding="0"
+                BackgroundColor="{StaticResource PrimaryBackgroundColor}"
+                CornerRadius="{StaticResource CornerRadius}">
                 <views:Expander>
                     <views:Expander.Header>
-                        <Label Text="Currency rates" 
-                               Padding="20"
-                               HorizontalTextAlignment="Center"
-                               TextColor="{StaticResource PrimaryTextColor}"
-                               FontSize="Body"/>
+                        <Label
+                            Padding="20"
+                            FontSize="Body"
+                            HorizontalTextAlignment="Center"
+                            Text="Currency rates"
+                            TextColor="{StaticResource PrimaryTextColor}" />
                     </views:Expander.Header>
-                    <CollectionView ItemsSource="{Binding CurrencyRates.Currencies}"
-                                    Margin="5, 0">
+                    <CollectionView Margin="5,0" ItemsSource="{Binding CurrencyRates.Currencies}">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical"
-                                               ItemSpacing="5"/>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Frame BackgroundColor="{StaticResource CurrencyBlockColor}" 
-                                       CornerRadius="{StaticResource CornerRadius}"
-                                       Padding="5">
-                                    <Grid ColumnDefinitions="*, 80"
-                                          Padding="10, 0">
-                                        <Label Grid.Column="0" 
-                                               Grid.ColumnSpan="2"
-                                               HorizontalTextAlignment="Center"
-                                               VerticalTextAlignment="Center"
-                                               TextColor="{StaticResource CharCodeTextColor}" 
-                                               FontSize="36" 
-                                               FontAttributes="Bold" 
-                                               Text="{Binding CharCode}" />
-                                        <Label Grid.Column="0"
-                                               HorizontalTextAlignment="Start"
-                                               VerticalTextAlignment="Center"
-                                               TextColor="{StaticResource PrimaryTextColor}"
-                                               Text="{Binding Name}" />
-                                        <Label Grid.Column="1"
-                                               HorizontalTextAlignment="End"
-                                               VerticalTextAlignment="Center"
-                                               TextColor="{StaticResource PrimaryTextColor}"
-                                               Text="{Binding Value, StringFormat='{0:0.####} ₽'}" />
+                                <Frame
+                                    Padding="5"
+                                    BackgroundColor="{StaticResource CurrencyBlockColor}"
+                                    CornerRadius="{StaticResource CornerRadius}">
+                                    <Grid Padding="10,0" ColumnDefinitions="*, 80">
+                                        <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2"
+                                            FontAttributes="Bold"
+                                            FontSize="36"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding CharCode}"
+                                            TextColor="{StaticResource CharCodeTextColor}"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            Grid.Column="0"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding Name}"
+                                            TextColor="{StaticResource PrimaryTextColor}"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="End"
+                                            Text="{Binding Value, StringFormat='{0:0.####} ₽'}"
+                                            TextColor="{StaticResource PrimaryTextColor}"
+                                            VerticalTextAlignment="Center" />
                                     </Grid>
                                 </Frame>
                             </DataTemplate>
@@ -201,6 +221,6 @@
 
         </StackLayout>
 
-        <ActivityIndicator IsRunning="{Binding IsBusy}"/>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" />
     </Grid>
 </ContentPage>

@@ -15,8 +15,8 @@ namespace CurrencyConverter.ViewModels
             var date = DateTime.Parse(Preferences.Get("date", $"{DateTime.Now}"));
 
             CurrencyRates = GetCurrencyRates(date);
-
-            Amount = Preferences.Get("amount", string.Empty);
+            
+            Amount = Preferences.Get("amount", "0");
             FromCurrency = JsonSerializer.Deserialize<Currency>(Preferences.Get("fromCurrency", JsonSerializer.Serialize(CurrencyRates.Currencies[0])));
             ToCurrency = JsonSerializer.Deserialize<Currency>(Preferences.Get("toCurrency", JsonSerializer.Serialize(CurrencyRates.Currencies[0])));
             Date = date;
@@ -121,7 +121,6 @@ namespace CurrencyConverter.ViewModels
                 return new Command(() =>
                 {
                     (FromCurrency, ToCurrency) = (ToCurrency, FromCurrency);
-                    //Calculate.Execute(null);
                 });
             }
         }
